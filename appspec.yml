@@ -1,0 +1,31 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /opt/office
+permissions:
+  - object: /
+    pattern: "**"
+    owner: perinei
+    group: perinei
+hooks:
+  ApplicationStop:
+    - location: scripts/ApplicationStop.sh
+      timeout: 60
+      runas: perinei
+  BeforeInstall:
+    - location: scripts/BeforeInstall.sh
+      timeout: 180
+      runas: perinei
+  AfterInstall:
+    - location: scripts/AfterInstall.sh
+      timeout: 300
+      runas: perinei
+  ApplicationStart:
+    - location: scripts/ApplicationStart.sh
+      timeout: 60
+      runas: perinei
+  ValidateService:
+    - location: scripts/ValidateService.sh
+      timeout: 60
+      runas: perinei
