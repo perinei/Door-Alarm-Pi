@@ -14,7 +14,7 @@ hooks:
       timeout: 60
       runas: perinei
   BeforeInstall:
-    - location: scripts/2_BeforeInstall.sh
+    - location: scripts/BeforeInstall.sh
       timeout: 180
       runas: perinei
   AfterInstall:
