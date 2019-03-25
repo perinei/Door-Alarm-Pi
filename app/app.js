@@ -2,7 +2,6 @@ var version = 7;
 var env = require('./env');
 console.log(env.sns_arn);
 var AWS = require('aws-sdk');
-// AWS.config.loadFromPath('./config.json');
 var credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
 AWS.config.credentials = credentials;
 AWS.config.update({region: 'us-east-1'});
