@@ -1,5 +1,4 @@
 #!/bin/bash
-#echo "Stoping app"
-#cd /opt/M220/
-#forever stop index.js
+echo "Stoping app"
+sudo service door stop
 echo "app stopped"
