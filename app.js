@@ -3,6 +3,8 @@ var env = require('./env');
 console.log(env.sns_arn);
 var AWS = require('aws-sdk');
 // AWS.config.loadFromPath('./config.json');
+var credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
+AWS.config.credentials = credentials;
 var docClient = new AWS.DynamoDB.DocumentClient();
 var Gpio = require('onoff').Gpio; //include onoff to interact with the GPIO
 var LED = new Gpio(26, 'out'); //use GPIO pin 26 as output
