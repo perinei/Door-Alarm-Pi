@@ -1,4 +1,4 @@
-var version = 6;
+var version = 7;
 var env = require('./env');
 console.log(env.sns_arn);
 var AWS = require('aws-sdk');
