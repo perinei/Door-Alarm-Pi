@@ -10,7 +10,7 @@ permissions:
     group: perinei
 hooks:
   ApplicationStop:
-    - location: scripts/1_ApplicationStop.sh
+    - location: scripts/ApplicationStop.sh
       timeout: 60
       runas: perinei
   BeforeInstall:
@@ -18,14 +18,14 @@ hooks:
       timeout: 180
       runas: perinei
   AfterInstall:
-    - location: scripts/3_AfterInstall.sh
+    - location: scripts/AfterInstall.sh
       timeout: 300
       runas: perinei
   ApplicationStart:
-    - location: scripts/4_ApplicationStart.sh
+    - location: scripts/ApplicationStart.sh
       timeout: 60
       runas: perinei
   ValidateService:
-    - location: scripts/5_ValidateService.sh
+    - location: scripts/ValidateService.sh
       timeout: 60
       runas: perinei
