@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.427.0",
-    "onoff": "^4.1.1"
+    "onoff": "^4.1.1",
+    "aws-param-store": "^2.1.0"
   }
 }
