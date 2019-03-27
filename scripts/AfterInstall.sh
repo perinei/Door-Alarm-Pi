@@ -5,7 +5,7 @@
 
 echo "installing modules"
 cd /opt/doorSensor/
-# npm install
+npm install
 echo "modules installed"
 
 # echo "getteing Parameters store variables"
