@@ -4,5 +4,6 @@ AWS.config.credentials = credentials;
 AWS.config.update({region: 'us-east-1'});
 const awsParamStore = require( 'aws-param-store' );
 
-let parameter = awsParamStore.getParameterSync( '/doorSensor/arn_sns', {region: 'us-east-1'});
-console.log(parameter);
+let parameter = awsParamStore.getParameterSync( '/doorSensor/sns_arn', {region: 'us-east-1'});
+let arn_sns = parameter.Value
+console.log(arn_sns);

@@ -12,6 +12,14 @@ var pushButton = new Gpio(13, 'in', 'both'); //use GPIO pin 13 as input, and 'bo
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
+// Parameter Store
+const awsParamStore = require( 'aws-param-store' );
+let parameter = awsParamStore.getParameterSync( '/doorSensor/sns_arn', {region: 'us-east-1'});
+var arn_var = parameter.Value;
+console.log(arn_var);
+
+// Parameter Store end
+
 var globalSerial;
 fMain();
 
@@ -90,7 +98,7 @@ function sendMessage(status) {
     var d = new Date();
     var params = {
     Message: `${globalSerial}: Door:${status} on ${d}`,  /* required */
-    TopicArn: "arn:aws:sns:us-east-1:636113544154:doorSensor"
+    TopicArn: arn_sns
   };
 
   // Create promise and SNS service object
