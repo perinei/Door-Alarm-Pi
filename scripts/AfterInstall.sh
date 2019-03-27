@@ -6,11 +6,11 @@
 echo "installing modules"
 cd /opt/doorSensor/
 npm install
-echo "module installed"
+echo "modules installed"
 
 echo "getteing Parameters store variables"
 sns_arn=$(aws ssm get-parameters --region us-east-1 --names sns_arn --query Parameters[0].Value)
-cd /opt/doorSensor/
+
 echo "deleting old env.js"
 rm env.js
 #creating new env.js with sns_arn
