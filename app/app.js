@@ -18,7 +18,7 @@ console.log(arn_sns);
 
 var globalSerial;
 var sns;
-console.log(`SNSTXT ${sns}`);
+
 fMain();
 
 async function fMain() {
@@ -26,6 +26,7 @@ async function fMain() {
     // console.log(`Alarm service is UP - version:${version}`);
     globalSerial = await fnSerial();
     sns = await fnGetArnSns();
+    console.log(`SNSTXT ${sns}`);
     var ButtonStatus = pushButton.readSync();
     var status;
     if (ButtonStatus == 0) {
@@ -74,11 +75,6 @@ async function fnSerial() {
 
 async function fnGetArnSns() {
   const { stdout, stderr } = await exec('aws ssm get-parameters --names /doorSensor/sns_arn --query Parameters[0].Value');
-  // console.log('stdout:', stdout);
-  // console.log('stderr:', stderr);
-  var serialSplit = stdout.split(":");
-  var serialOnly = serialSplit[1].trim();
-  // console.log(serial1);
   return stdout;
 }
 
