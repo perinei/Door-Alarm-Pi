@@ -15,8 +15,8 @@ const exec = util.promisify(require('child_process').exec);
 // Parameter Store
 const awsParamStore = require( 'aws-param-store' );
 let parameter = awsParamStore.getParameterSync( '/doorSensor/sns_arn', {region: 'us-east-1'});
-var arn_var = parameter.Value;
-console.log(arn_var);
+var arn_sns = parameter.Value;
+console.log(arn_sns);
 
 // Parameter Store end
 
