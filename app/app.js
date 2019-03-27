@@ -75,7 +75,7 @@ async function fnSerial() {
 
 async function fnGetArnSns() {
   const { stdout, stderr } = await exec('aws ssm get-parameters --names /doorSensor/sns_arn --query Parameters[0].Value');
-  var DataString = stdout.replace("\"","");
+  var DataString = stdout.replace(/"/g, '');
   console.log(DataString);
   return DataString;
 }
