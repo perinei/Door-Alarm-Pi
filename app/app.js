@@ -17,12 +17,14 @@ console.log(arn_sns);
 // Parameter Store end
 
 var globalSerial;
+var sns;
 fMain();
 
 async function fMain() {
   try {
     // console.log(`Alarm service is UP - version:${version}`);
     globalSerial = await fnSerial();
+    sns = await fnGetArnSns();
     var ButtonStatus = pushButton.readSync();
     var status;
     if (ButtonStatus == 0) {
@@ -67,6 +69,16 @@ async function fnSerial() {
   var serialOnly = serialSplit[1].trim();
   // console.log(serial1);
   return serialOnly;
+}
+
+async function fnGetArnSns() {
+  const { stdout, stderr } = await exec('aws ssm get-parameters --names /doorSensor/sns_arn --query Parameters[0].Value');
+  // console.log('stdout:', stdout);
+  // console.log('stderr:', stderr);
+  var serialSplit = stdout.split(":");
+  var serialOnly = serialSplit[1].trim();
+  // console.log(serial1);
+  return stdout;
 }
 
 function writeToDynamoDB(status) {
