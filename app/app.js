@@ -1,6 +1,6 @@
 // deployed by codepipeline
-var env = require('./env');
-console.log(env.sns_arn);
+// var env = require('./env');
+// console.log(env.sns_arn);
 var AWS = require('aws-sdk');
 var credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
 AWS.config.credentials = credentials;
@@ -89,7 +89,7 @@ function sendMessage(status) {
     // Create publish parameters
     var d = new Date();
     var params = {
-    Message: `${globalSerial}:Office door:${status} on ${d}`,  /* required */
+    Message: `${globalSerial}: Door:${status} on ${d}`,  /* required */
     TopicArn: env.sns_arn
   };
 
