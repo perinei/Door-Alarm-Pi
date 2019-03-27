@@ -71,12 +71,12 @@ function writeToDynamoDB(status) {
   
   var params = {
     Item: {
+     "Serial": globalSerial,
      "date_time": seconds,
-     "Status": status, 
-     "Serial": globalSerial
+     "Status": status     
     },     
     ReturnConsumedCapacity: "TOTAL", 
-    TableName: "office"
+    TableName: "door_sensor"
    };
 
    docClient.put(params, function(err, data) {

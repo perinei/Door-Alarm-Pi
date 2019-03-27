@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /app/
-    destination: /opt/office
+    destination: /opt/doorSensor
 permissions:
   - object: /
     pattern: "**"

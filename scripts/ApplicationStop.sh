@@ -1,4 +1,4 @@
 #!/bin/bash
 echo "Stoping app"
-sudo service door stop
+sudo service doorSensor stop
 echo "app stopped"
