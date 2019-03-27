@@ -106,7 +106,7 @@ function sendMessage(status, vsns) {
     console.log(vsns);
     var params = {
     Message: `${globalSerial}: Door:${status} on ${d}`,  /* required */
-    TopicArn: vsns
+    TopicArn: "arn:aws:sns:us-east-1:636113544154:doorSensor"
   };
 
   // Create promise and SNS service object
