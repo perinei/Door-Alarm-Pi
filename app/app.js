@@ -17,7 +17,7 @@ fMain();
 
 async function fMain() {
   try {
-    console.log(`Alarm service is UP - version:${version}`);
+    // console.log(`Alarm service is UP - version:${version}`);
     globalSerial = await fnSerial();
     var ButtonStatus = pushButton.readSync();
     var status;
@@ -73,7 +73,7 @@ function writeToDynamoDB(status) {
     Item: {
      "Serial": globalSerial,
      "date_time": seconds,
-     "Status": status     
+     "status": status     
     },     
     ReturnConsumedCapacity: "TOTAL", 
     TableName: "door_sensor"
@@ -90,7 +90,7 @@ function sendMessage(status) {
     var d = new Date();
     var params = {
     Message: `${globalSerial}: Door:${status} on ${d}`,  /* required */
-    TopicArn: env.sns_arn
+    TopicArn: "arn:aws:sns:us-east-1:636113544154:doorSensor"
   };
 
   // Create promise and SNS service object
