@@ -93,7 +93,6 @@ function writeToDynamoDB(status) {
 function sendMessage(status) {
     // Create publish parameters
     var d = new Date();
-    console.log(vsns);
     var params = {
     Message: `${globalSerial}: Door:${status} on ${d}`,  /* required */
     TopicArn: arn_sns
