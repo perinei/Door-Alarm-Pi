@@ -37,7 +37,7 @@ async function fMain() {
       status = "Door is Closed"
     }
       writeToDynamoDB(status);
-      sendMessage(status);
+      sendMessage(status,sns);
   } catch (error) {
     console.error(error);
   }
@@ -58,7 +58,7 @@ pushButton.watch(async function (err, value) { //Watch for hardware interrupts o
     status = "Opened"
   }
   writeToDynamoDB(status);
-  sendMessage(status);
+  sendMessage(status, sns);
   
   LED.writeSync(value); //turn LED on or off depending on the button state (0 or 1)
 });
@@ -100,12 +100,13 @@ function writeToDynamoDB(status) {
  });
 }
 
-function sendMessage(status) {
+function sendMessage(status, vsns) {
     // Create publish parameters
     var d = new Date();
+    console.log(vsns);
     var params = {
     Message: `${globalSerial}: Door:${status} on ${d}`,  /* required */
-    TopicArn: sns
+    TopicArn: vsns
   };
 
   // Create promise and SNS service object
