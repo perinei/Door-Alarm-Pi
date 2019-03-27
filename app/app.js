@@ -18,6 +18,7 @@ console.log(arn_sns);
 
 var globalSerial;
 var sns;
+console.log(`SNSTXT ${sns}`);
 fMain();
 
 async function fMain() {
