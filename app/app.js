@@ -10,10 +10,10 @@ const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
 // Parameter Store
-const awsParamStore = require( 'aws-param-store' );
-let parameter = awsParamStore.getParameterSync( '/doorSensor/sns_arn', {region: 'us-east-1'});
-var arn_sns = parameter.Value;
-console.log(arn_sns);
+// const awsParamStore = require( 'aws-param-store' );
+// let parameter = awsParamStore.getParameterSync( '/doorSensor/sns_arn', {region: 'us-east-1'});
+// var arn_sns = parameter.Value;
+// console.log(arn_sns);
 // Parameter Store end
 
 var globalSerial;
@@ -103,7 +103,7 @@ function sendMessage(status) {
     var d = new Date();
     var params = {
     Message: `${globalSerial}: Door:${status} on ${d}`,  /* required */
-    TopicArn: arn_sns
+    TopicArn: sns
   };
 
   // Create promise and SNS service object
