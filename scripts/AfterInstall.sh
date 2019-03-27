@@ -12,6 +12,7 @@ echo "getteing Parameters store variables"
 sns_arn=$(aws ssm get-parameters --region us-east-1 --names sns_arn --query Parameters[0].Value)
 
 echo "deleting old env.js"
+cd /opt/doorSensor
 rm env.js
 #creating new env.js with sns_arn
 sudo echo module.exports.sns_arn = $sns_arn >> /opt/doorSensor/env.js
