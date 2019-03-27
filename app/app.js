@@ -1,4 +1,4 @@
-var version = 8;
+// deployed by codepipeline
 var env = require('./env');
 console.log(env.sns_arn);
 var AWS = require('aws-sdk');
