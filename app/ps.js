@@ -9,4 +9,5 @@ awsParamStore.getParametersByPath( 'arn_sns' )
     .then( (parameters) => {
 
         console.log(parameters);
+        return parameters;
     });
