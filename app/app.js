@@ -1,6 +1,3 @@
-// deployed by codepipeline
-// var env = require('./env');
-// console.log(env.sns_arn);
 var AWS = require('aws-sdk');
 var credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
 AWS.config.credentials = credentials;
@@ -17,7 +14,6 @@ const awsParamStore = require( 'aws-param-store' );
 let parameter = awsParamStore.getParameterSync( '/doorSensor/sns_arn', {region: 'us-east-1'});
 var arn_sns = parameter.Value;
 console.log(arn_sns);
-
 // Parameter Store end
 
 var globalSerial;
