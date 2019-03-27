@@ -8,6 +8,11 @@ const awsParamStore = require( 'aws-param-store' );
 awsParamStore.getParametersByPath( '/doorSensor' )
     .then( (parameters) => {
 
-        console.log(parameters.Value);
+        
+        
+        //console.log(parameters.Value);
+        var valor = JSON.parse(parameters);
+        console.log(valor.Value);
+
         return parameters;
     });
