@@ -5,7 +5,7 @@ AWS.config.update({region: 'us-east-1'});
 
 const awsParamStore = require( 'aws-param-store' );
 
-awsParamStore.getParametersByPath( '/arn_sns' )
+awsParamStore.getParametersByPath( '/doorSensor/sns_arn' )
     .then( (parameters) => {
 
         console.log(parameters);
