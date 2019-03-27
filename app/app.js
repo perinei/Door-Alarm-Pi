@@ -10,14 +10,13 @@ const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
 // Parameter Store
-// const awsParamStore = require( 'aws-param-store' );
-// let parameter = awsParamStore.getParameterSync( '/doorSensor/sns_arn', {region: 'us-east-1'});
-// var arn_sns = parameter.Value;
-// console.log(arn_sns);
+const awsParamStore = require( 'aws-param-store' );
+let parameter = awsParamStore.getParameterSync( '/doorSensor/sns_arn', {region: 'us-east-1'});
+var arn_sns = parameter.Value;
+console.log(arn_sns);
 // Parameter Store end
 
 var globalSerial;
-var sns;
 
 fMain();
 
@@ -25,8 +24,6 @@ async function fMain() {
   try {
     // console.log(`Alarm service is UP - version:${version}`);
     globalSerial = await fnSerial();
-    sns = await fnGetArnSns();
-    console.log(sns);
     var ButtonStatus = pushButton.readSync();
     var status;
     if (ButtonStatus == 0) {
@@ -37,7 +34,7 @@ async function fMain() {
       status = "Door is Closed"
     }
       writeToDynamoDB(status);
-      sendMessage(status,sns);
+      sendMessage(status);
   } catch (error) {
     console.error(error);
   }
@@ -58,7 +55,7 @@ pushButton.watch(async function (err, value) { //Watch for hardware interrupts o
     status = "Opened"
   }
   writeToDynamoDB(status);
-  sendMessage(status, sns);
+  sendMessage(status);
   
   LED.writeSync(value); //turn LED on or off depending on the button state (0 or 1)
 });
@@ -71,13 +68,6 @@ async function fnSerial() {
   var serialOnly = serialSplit[1].trim();
   // console.log(serial1);
   return serialOnly;
-}
-
-async function fnGetArnSns() {
-  const { stdout, stderr } = await exec('aws ssm get-parameters --names /doorSensor/sns_arn --query Parameters[0].Value');
-  var DataString = stdout.replace(/"/g, '');
-  console.log(DataString);
-  return DataString;
 }
 
 function writeToDynamoDB(status) {
@@ -100,13 +90,13 @@ function writeToDynamoDB(status) {
  });
 }
 
-function sendMessage(status, vsns) {
+function sendMessage(status) {
     // Create publish parameters
     var d = new Date();
     console.log(vsns);
     var params = {
     Message: `${globalSerial}: Door:${status} on ${d}`,  /* required */
-    TopicArn: "arn:aws:sns:us-east-1:636113544154:doorSensor"
+    TopicArn: arn_sns
   };
 
   // Create promise and SNS service object
