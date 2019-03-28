@@ -8,12 +8,18 @@ var pushButton = new Gpio(13, 'in', 'both'); //use GPIO pin 13 as input, and 'bo
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
-/////////////////////////////////////////////////////////////////////////////
+
+
+fMain();
+
+async function fMain() {
+  
+  /////////////////////////////////////////////////////////////////////////////
 var AWS = require('aws-sdk');
 // var credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
 // AWS.config.credentials = credentials;
 AWS.config.update({region: 'us-east-1'});
-var docClient = await new AWS.DynamoDB.DocumentClient();
+var docClient = new AWS.DynamoDB.DocumentClient();
 
 // Parameter Store
 const awsParamStore = require( 'aws-param-store' );
@@ -22,11 +28,6 @@ var arn_sns = parameter.Value;
 console.log(arn_sns);
 // Parameter Store end
 ////////////////////////////////////////////////////////////////////////////////
-
-fMain();
-
-async function fMain() {
-  
 
   try {
     console.log(`doorSensor service is UP!`);
