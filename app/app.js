@@ -17,6 +17,7 @@ console.log(arn_sns);
 // Parameter Store end
 
 var globalSerial;
+var myRegion;
 
 fMain();
 
@@ -24,6 +25,8 @@ async function fMain() {
   try {
     console.log(`doorSensor service is UP!`);
     globalSerial = await fnSerial();
+    myRegion = await fnRegion();
+    console.log(myRegion);
     var ButtonStatus = pushButton.readSync();
     var status;
     if (ButtonStatus == 0) {
@@ -34,7 +37,7 @@ async function fMain() {
       status = "Door is Closed"
     }
       writeToDynamoDB(status);
-      sendMessage(status);
+      // sendMessage(status);
   } catch (error) {
     console.error(error);
   }
@@ -68,6 +71,16 @@ async function fnSerial() {
   var serialOnly = serialSplit[1].trim();
   // console.log(serial1);
   return serialOnly;
+}
+
+async function fnRegion() {
+  const { stdout, stderr } = await exec('cat ~/.aws/config | grep region');
+  // console.log('stdout:', stdout);
+  // console.log('stderr:', stderr);
+  var splited = stdout.split("=");
+  var Region = splited[1].trim();
+  console.log(myRegion);
+  return Region;
 }
 
 function writeToDynamoDB(status) {
