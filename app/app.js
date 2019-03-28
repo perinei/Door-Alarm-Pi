@@ -16,7 +16,7 @@ async function fMain() {
   // var credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
   // AWS.config.credentials = credentials;
   AWS.config.update({region: 'us-east-1'});
-  var docClient = new AWS.DynamoDB.DocumentClient();
+  var docClient = await new AWS.DynamoDB.DocumentClient();
   
   // Parameter Store
   const awsParamStore = require( 'aws-param-store' );
