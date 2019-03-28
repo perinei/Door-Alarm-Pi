@@ -1,6 +1,6 @@
 var globalSerial;
 var myRegion;
-
+var docClient;
 var Gpio = require('onoff').Gpio; //include onoff to interact with the GPIO
 var LED = new Gpio(26, 'out'); //use GPIO pin 26 as output
 var pushButton = new Gpio(13, 'in', 'both'); //use GPIO pin 13 as input, and 'both' button presses, and releases should be handled
@@ -18,7 +18,7 @@ async function fMain() {
   // var credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
   // AWS.config.credentials = credentials;
   AWS.config.update({region: 'us-east-1'});
-  var docClient = new AWS.DynamoDB.DocumentClient();
+  docClient = new AWS.DynamoDB.DocumentClient();
   
   // Parameter Store
   const awsParamStore = require( 'aws-param-store' );
