@@ -1,3 +1,8 @@
+var globalSerial;
+var myRegion;
+myRegion = await fnRegion();
+console.log(myRegion);
+
 var AWS = require('aws-sdk');
 // var credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
 // AWS.config.credentials = credentials;
@@ -16,8 +21,7 @@ var arn_sns = parameter.Value;
 console.log(arn_sns);
 // Parameter Store end
 
-var globalSerial;
-var myRegion;
+
 
 fMain();
 
