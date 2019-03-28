@@ -1,32 +1,33 @@
-var globalSerial;
-var docClient;
+var globalSerial; // Pi Serial Number
+var docClient; // AWS.DynamoDB.DocumentClient();
 
-var AWS = require('aws-sdk');
+var AWS = require('aws-sdk'); // SDK for Nodejs
 
 var Gpio = require('onoff').Gpio; //include onoff to interact with the GPIO
 var LED = new Gpio(26, 'out'); //use GPIO pin 26 as output
 var pushButton = new Gpio(13, 'in', 'both'); //use GPIO pin 13 as input, and 'both' button presses, and releases should be handled
 
-const util = require('util');
-const exec = util.promisify(require('child_process').exec);
+const util = require('util');  // required to execute linux command
+const exec = util.promisify(require('child_process').exec); // execute linux command
 
-fMain();
+fMain(); // main function
 
 async function fMain() {
-  try {
+  try {  // try to execute
     console.log(`doorSensor service is UP!`);
-    globalSerial = await fnSerial();
-    var myRegion = await fnRegion();
-    console.log(myRegion);
+    globalSerial = await fnSerial();  // get pi serial number
+    console.log(`Serial number: ${globalSerial}`);
+    var myRegion = await fnRegion();  // get AWS region from AWS configure
+    console.log(`Region ${myRegion}`);
 
     AWS.config.update({region: myRegion});
-    docClient = new AWS.DynamoDB.DocumentClient();
+    docClient = new AWS.DynamoDB.DocumentClient();  // client to use with dynamoDB
     
     // Parameter Store
     const awsParamStore = require( 'aws-param-store' );
     let parameter = awsParamStore.getParameterSync( '/doorSensor/sns_arn', {region: myRegion});
     var arn_sns = parameter.Value;
-    console.log(arn_sns);
+    console.log(`SNS topic ARN ${arn_sns}`);
     // Parameter Store end
     
     var ButtonStatus = pushButton.readSync();
@@ -65,17 +66,15 @@ pushButton.watch(async function (err, value) { //Watch for hardware interrupts o
   LED.writeSync(value); //turn LED on or off depending on the button state (0 or 1)
 });
 
-async function fnSerial() {
+async function fnSerial() { // return Pi Serial Number
   const { stdout, stderr } = await exec('cat /proc/cpuinfo | grep Serial');
   // console.log('stdout:', stdout);
-  // console.log('stderr:', stderr);
   var serialSplit = stdout.split(":");
   var serialOnly = serialSplit[1].trim();
-  // console.log(serial1);
   return serialOnly;
 }
 
-async function fnRegion() {
+async function fnRegion() {  // return AWS region 
   const { stdout, stderr } = await exec('cat ~/.aws/config | grep region');
   // console.log('stdout:', stdout);
   // console.log('stderr:', stderr);
@@ -84,7 +83,7 @@ async function fnRegion() {
   return Region;
 }
 
-function writeToDynamoDB(status) {
+function writeToDynamoDB(status) { // putItem on dynamoDB table
   var d = new Date();
   var seconds = Math.round(d.getTime() / 1000);
   

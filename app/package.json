@@ -1,7 +1,7 @@
 {
-  "name": "doorSensor",
+  "name": "doorsensor",
   "version": "1.0.0",
-  "description": "Raspberry Pi Project. Notification are sent using AWS SNS and data is storage in AWS DynamoDB",
+  "description": "Door notification - Raspberry Pi Project. Notification are sent using AWS SNS and data is storage in AWS DynamoDB",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
