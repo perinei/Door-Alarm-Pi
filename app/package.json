@@ -1,5 +1,5 @@
 {
-  "name": "office",
+  "name": "doorSensor",
   "version": "1.0.0",
   "description": "Raspberry Pi Project. Notification are sent using AWS SNS and data is storage in AWS DynamoDB",
   "main": "app.js",

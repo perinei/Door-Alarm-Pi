@@ -1,6 +1,6 @@
 var AWS = require('aws-sdk');
-var credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
-AWS.config.credentials = credentials;
+// var credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
+// AWS.config.credentials = credentials;
 AWS.config.update({region: 'us-east-1'});
 var docClient = new AWS.DynamoDB.DocumentClient();
 var Gpio = require('onoff').Gpio; //include onoff to interact with the GPIO
@@ -22,7 +22,7 @@ fMain();
 
 async function fMain() {
   try {
-    // console.log(`Alarm service is UP - version:${version}`);
+    console.log(`doorSensor service is UP!`);
     globalSerial = await fnSerial();
     var ButtonStatus = pushButton.readSync();
     var status;
