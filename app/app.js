@@ -14,7 +14,8 @@ fMain(); // main function
 
 async function fMain() {
   try {  // try to execute
-    console.log(`doorSensor service is UP!`);
+    var d = new Date();
+    console.log(`doorSensor service is UP! -> ${d}`);
     globalSerial = await fnSerial();  // get pi serial number
     console.log(`Serial number: ${globalSerial}`);
     var myRegion = await fnRegion();  // get AWS region from AWS configure
