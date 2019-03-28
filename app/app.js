@@ -13,26 +13,30 @@ fMain();
 async function fMain() {
   try {
 
-    /////////////////////////////////////////////////////////////////////////////
-  var AWS = require('aws-sdk');
-  // var credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
-  // AWS.config.credentials = credentials;
-  AWS.config.update({region: 'us-east-1'});
-  docClient = new AWS.DynamoDB.DocumentClient();
-  
-  // Parameter Store
-  const awsParamStore = require( 'aws-param-store' );
-  let parameter = awsParamStore.getParameterSync( '/doorSensor/sns_arn', {region: 'us-east-1'});
-  var arn_sns = parameter.Value;
-  console.log(arn_sns);
-  // Parameter Store end
-  ////////////////////////////////////////////////////////////////////////////////
+   
 
 
     console.log(`doorSensor service is UP!`);
     globalSerial = await fnSerial();
     myRegion = await fnRegion();
     console.log(myRegion);
+
+    /////////////////////////////////////////////////////////////////////////////
+    var AWS = require('aws-sdk');
+    // var credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
+    // AWS.config.credentials = credentials;
+    AWS.config.update({region: 'us-east-1'});
+    docClient = new AWS.DynamoDB.DocumentClient();
+    
+    // Parameter Store
+    const awsParamStore = require( 'aws-param-store' );
+    let parameter = awsParamStore.getParameterSync( '/doorSensor/sns_arn', {region: 'us-east-1'});
+    var arn_sns = parameter.Value;
+    console.log(arn_sns);
+    // Parameter Store end
+    ////////////////////////////////////////////////////////////////////////////////
+
+
     var ButtonStatus = pushButton.readSync();
     var status;
     if (ButtonStatus == 0) {
