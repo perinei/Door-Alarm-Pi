@@ -34,10 +34,10 @@ async function fMain() {
     var status;
     if (ButtonStatus == 0) {
       LED.write(1);
-      status = "Door is Open"
+      status = "Open!"
     } else {
       LED.write(0);
-      status = "Door is Closed"
+      status = "Closed!"
     }
       writeToDynamoDB(status);
       // sendMessage(status);
@@ -107,7 +107,7 @@ function sendMessage(status) {
     // Create publish parameters
     var d = new Date();
     var params = {
-    Message: `${globalSerial}: Door:${status} on ${d}`,  /* required */
+    Message: `Device ${globalSerial}: Door is:${status} on ${d}`,  /* required */
     TopicArn: arn_sns
   };
 
