@@ -1,3 +1,3 @@
 #!/bin/bash
 
-# We are not going to validate this service
+# We are not going to perform a test to validate this app
