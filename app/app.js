@@ -8,6 +8,8 @@ var pushButton = new Gpio(13, 'in', 'both'); //use GPIO pin 13 as input, and 'bo
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
+fMain();
+
   /////////////////////////////////////////////////////////////////////////////
   var AWS = require('aws-sdk');
   // var credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
@@ -24,12 +26,9 @@ const exec = util.promisify(require('child_process').exec);
   ////////////////////////////////////////////////////////////////////////////////
 
 
-fMain();
+// fMain();
 
 async function fMain() {
-  
-
-
   try {
     console.log(`doorSensor service is UP!`);
     globalSerial = await fnSerial();
@@ -44,7 +43,7 @@ async function fMain() {
       LED.write(0);
       status = "Door is Closed"
     }
-      writeToDynamoDB(status);
+      // writeToDynamoDB(status);
       // sendMessage(status);
   } catch (error) {
     console.error(error);
