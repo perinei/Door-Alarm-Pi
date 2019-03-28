@@ -1,6 +1,8 @@
 var globalSerial;
-var myRegion;
 var docClient;
+
+var AWS = require('aws-sdk');
+
 var Gpio = require('onoff').Gpio; //include onoff to interact with the GPIO
 var LED = new Gpio(26, 'out'); //use GPIO pin 26 as output
 var pushButton = new Gpio(13, 'in', 'both'); //use GPIO pin 13 as input, and 'both' button presses, and releases should be handled
@@ -12,19 +14,11 @@ fMain();
 
 async function fMain() {
   try {
-
-   
-
-
     console.log(`doorSensor service is UP!`);
     globalSerial = await fnSerial();
-    myRegion = await fnRegion();
+    var myRegion = await fnRegion();
     console.log(myRegion);
 
-    /////////////////////////////////////////////////////////////////////////////
-    var AWS = require('aws-sdk');
-    // var credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
-    // AWS.config.credentials = credentials;
     AWS.config.update({region: myRegion});
     docClient = new AWS.DynamoDB.DocumentClient();
     
@@ -34,9 +28,7 @@ async function fMain() {
     var arn_sns = parameter.Value;
     console.log(arn_sns);
     // Parameter Store end
-    ////////////////////////////////////////////////////////////////////////////////
-
-
+    
     var ButtonStatus = pushButton.readSync();
     var status;
     if (ButtonStatus == 0) {
@@ -46,7 +38,7 @@ async function fMain() {
       LED.write(0);
       status = "Door is Closed"
     }
-      // writeToDynamoDB(status);
+      writeToDynamoDB(status);
       // sendMessage(status);
   } catch (error) {
     console.error(error);
