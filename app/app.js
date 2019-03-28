@@ -12,7 +12,7 @@ const exec = util.promisify(require('child_process').exec);
 
   
 
-// fMain();
+fMain();
 
 async function fMain() {
   try {
