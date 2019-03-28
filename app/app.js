@@ -79,7 +79,7 @@ async function fnSerial() { // return Pi Serial Number
 }
 
 async function fnRegion() {  // return AWS region 
-  const { stdout, stderr } = await exec('cat /home/perinei/.aws/config | grep region');
+  const { stdout, stderr } = await exec('cat ~/.aws/config | grep region');
   // console.log('stdout:', stdout);
   // console.log('stderr:', stderr);
   var splited = stdout.split("=");
