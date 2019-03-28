@@ -79,7 +79,6 @@ async function fnRegion() {
   // console.log('stderr:', stderr);
   var splited = stdout.split("=");
   var Region = splited[1].trim();
-  console.log(myRegion);
   return Region;
 }
 
