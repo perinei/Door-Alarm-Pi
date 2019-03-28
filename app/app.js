@@ -20,6 +20,8 @@ async function fMain() {
     console.log(`Serial number: ${globalSerial}`);
     var myRegion = await fnRegion();  // get AWS region from AWS configure
     console.log(`Region ${myRegion}`);
+    var user = await fnUser();  // get linux user
+    console.log(`User: ${user}`);
 
     AWS.config.update({region: myRegion});
     docClient = new AWS.DynamoDB.DocumentClient();  // client to use with dynamoDB
@@ -83,6 +85,13 @@ async function fnRegion() {  // return AWS region
   var splited = stdout.split("=");
   var Region = splited[1].trim();
   return Region;
+}
+
+async function fnUser() {  // return AWS region 
+  const { stdout, stderr } = await exec('whoami');
+  // console.log('stdout:', stdout);
+  // console.log('stderr:', stderr);
+  return stdout;
 }
 
 function writeToDynamoDB(status) { // putItem on dynamoDB table
