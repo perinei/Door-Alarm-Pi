@@ -2,30 +2,30 @@ version: 0.0
 os: linux
 files:
   - source: /app/
-    destination: /opt/doorSensor
+    destination: /home/app/doorSensor
 permissions:
   - object: /
     pattern: "**"
-    owner: perinei
-    group: perinei
+    owner: app
+    group: app
 hooks:
   ApplicationStop:
     - location: scripts/ApplicationStop.sh
       timeout: 60
-      runas: perinei
+      runas: app
   BeforeInstall:
     - location: scripts/BeforeInstall.sh
       timeout: 180
-      runas: perinei
+      runas: app
   AfterInstall:
     - location: scripts/AfterInstall.sh
       timeout: 300
-      runas: perinei
+      runas: app
   ApplicationStart:
     - location: scripts/ApplicationStart.sh
       timeout: 60
-      runas: perinei
+      runas: app
   ValidateService:
     - location: scripts/ValidateService.sh
       timeout: 60
-      runas: perinei
+      runas: app
