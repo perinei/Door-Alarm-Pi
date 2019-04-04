@@ -2,6 +2,6 @@
 
 ##### Install Modules
 
-#cd /home/app/doorSensor/
-#npm install
+cd /home/app/doorSensor/
+npm install
 
