@@ -5,4 +5,4 @@
 #sudo apt-get -y update
 #sudo apt-get -y upgrade
 
-sudo rm -dr /home/app/doorSensor
+rm -dr /home/app/doorSensor
