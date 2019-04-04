@@ -2,7 +2,7 @@
 
 #update the system
 
+rm -rf /home/app/doorSensor
+
 sudo apt-get -y update
 sudo apt-get -y upgrade
-
-rm -rf /home/app/doorSensor

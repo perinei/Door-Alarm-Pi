@@ -11,11 +11,11 @@ permissions:
 hooks:
   ApplicationStop:
     - location: scripts/ApplicationStop.sh
-      timeout: 30
+      timeout: 60
       runas: app
   BeforeInstall:
     - location: scripts/BeforeInstall.sh
-      timeout: 30
+      timeout: 300
       runas: app
   AfterInstall:
     - location: scripts/AfterInstall.sh
