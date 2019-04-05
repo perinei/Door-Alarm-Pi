@@ -65,7 +65,7 @@ pushButton.watch(async function (err, value) { //Watch for hardware interrupts o
     status = "Opened"
   }
   writeToDynamoDB(status);
-  // sendMessage(status);
+  //sendMessage(status);
   
   LED.writeSync(value); //turn LED on or off depending on the button state (0 or 1)
 });
