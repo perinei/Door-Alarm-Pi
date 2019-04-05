@@ -1,7 +1,7 @@
-var globalSerial; // Pi Serial Number
+var AWS = require('aws-sdk'); // SDK for Nodejs
 var docClient; // AWS.DynamoDB.DocumentClient();
 
-var AWS = require('aws-sdk'); // SDK for Nodejs
+var globalSerial; // Pi Serial Number
 
 var Gpio = require('onoff').Gpio; //include onoff to interact with the GPIO
 var LED = new Gpio(26, 'out'); //use GPIO pin 26 as output
@@ -44,7 +44,7 @@ async function fMain() {
       status = "Closed!"
     }
       writeToDynamoDB(status);
-      // sendMessage(status);
+      sendMessage(status);
   } catch (error) {
     console.error(error);
   }
@@ -65,9 +65,8 @@ pushButton.watch(async function (err, value) { //Watch for hardware interrupts o
     status = "Opened"
   }
   writeToDynamoDB(status);
-  //sendMessage(status);
-  
-  LED.writeSync(value); //turn LED on or off depending on the button state (0 or 1)
+  sendMessage(status);
+
 });
 
 async function fnSerial() { // return Pi Serial Number
@@ -128,7 +127,7 @@ function sendMessage(status) {
   // Handle promise's fulfilled/rejected states
   publishTextPromise.then(
     function(data) {
-      console.log(`Message ${params.Message} send sent to the topic ${params.TopicArn}`);
+      console.log(`Message ${params.Message} sent to the topic ${params.TopicArn}`);
       console.log("MessageID is " + data.MessageId);
     }).catch(
     function(err) {
@@ -143,4 +142,3 @@ function unexportOnClose() { //function to run when exiting program
 };
 
 process.on('SIGINT', unexportOnClose); //run when user closes using ctrl+c
-// app deployed by AWS codepipeline
