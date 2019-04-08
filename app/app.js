@@ -1,4 +1,4 @@
-var AWS = require('aws-sdk'); // SDK for Nodejs.
+var AWS = require('aws-sdk'); // SDK for Nodejs. 
 var docClient; // AWS.DynamoDB.DocumentClient();
 
 var globalSerial; // Pi Serial Number
