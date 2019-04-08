@@ -5,7 +5,7 @@ var globalSerial; // Pi Serial Number
 
 var Gpio = require('onoff').Gpio; //include onoff to interact with the GPIO
 var LED = new Gpio(26, 'out'); //use GPIO pin 26 as output
-var pushButton = new Gpio(13, 'in', 'both'); //use GPIO pin 13 as input, and 'both' button presses, and releases should be handled
+var pushButton = new Gpio(13, 'in', 'both', {debounceTimeout: 5000}); //use GPIO pin 13 as input, and 'both' button presses, and releases should be handled
 
 const util = require('util');  // required to execute linux command
 const exec = util.promisify(require('child_process').exec); // execute linux command
