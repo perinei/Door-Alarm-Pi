@@ -117,7 +117,7 @@ function writeToDynamoDB(status) { // putItem on dynamoDB table
  });
 }
 
-function sendMessage(status, arn_sns) {
+function sendMessage(status) {
   var d = new Date();
   var textmessage = new AWS.SNS({apiVersion: '2010-03-31'});
   textmessage.publish({
