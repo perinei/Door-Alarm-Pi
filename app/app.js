@@ -121,18 +121,28 @@ function sendMessage(status) {
     TopicArn: arn_sns
   };
 
-  // Create promise and SNS service object
-  var publishTextPromise = new AWS.SNS({apiVersion: '2010-03-31'}).publish(params).promise();
-
-  // Handle promise's fulfilled/rejected states
-  publishTextPromise.then(
-    function(data) {
-      console.log(`Message ${params.Message} sent to the topic ${params.TopicArn}`);
-      console.log("MessageID is " + data.MessageId);
-    }).catch(
-    function(err) {
-      console.error(err, err.stack);
+  var textmessage = new AWS.SNS({apiVersion: '2010-03-31'});
+  textmessage.publish({ params },
+    function(err,data) {
+      if (err) {
+        console.error(err, err.stack);
+        return;
+      }
+      console.log(data);    
   });
+
+  // // Create promise and SNS service object
+  // var publishTextPromise = new AWS.SNS({apiVersion: '2010-03-31'}).publish(params).promise();
+
+  // // Handle promise's fulfilled/rejected states
+  // publishTextPromise.then(
+  //   function(data) {
+  //     console.log(`Message ${params.Message} sent to the topic ${params.TopicArn}`);
+  //     console.log("MessageID is " + data.MessageId);
+  //   }).catch(
+  //   function(err) {
+  //   console.error(err, err.stack);
+  // });
 }
 
 function unexportOnClose() { //function to run when exiting program
