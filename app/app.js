@@ -10,6 +10,8 @@ var pushButton = new Gpio(13, 'in', 'both'); //use GPIO pin 13 as input, and 'bo
 const util = require('util');  // required to execute linux command
 const exec = util.promisify(require('child_process').exec); // execute linux command
 
+var arn_sns; // arn of sns topic to send message to our phone
+
 fMain(); // main function
 
 async function fMain() {
@@ -32,7 +34,7 @@ async function fMain() {
     const awsParamStore = require( 'aws-param-store' );
     //this command is sync, NOT async
     let parameter = awsParamStore.getParameterSync( '/doorSensor/sns_arn', {region: myRegion});
-    var arn_sns = parameter.Value;
+    arn_sns = parameter.Value;
     console.log(`SNS topic ARN ${arn_sns}`);
     // Parameter Store end
     
@@ -67,7 +69,7 @@ pushButton.watch(async function (err, value) { //Watch for hardware interrupts o
     status = "Opened"
   }
   writeToDynamoDB(status);
-  sendMessage(status, arn_sns);
+  sendMessage(status);
 
 });
 
