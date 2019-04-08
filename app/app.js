@@ -15,6 +15,8 @@ fMain(); // main function
 async function fMain() {
   try {  // try to execute
     var d = new Date();
+    console.log("=================================");
+    console.log("=================================");
     console.log(`doorSensor service is UP! -> ${d}`);
     globalSerial = await fnSerial();  // get pi serial number
     console.log(`Serial number: ${globalSerial}`);
@@ -114,15 +116,12 @@ function writeToDynamoDB(status) { // putItem on dynamoDB table
 }
 
 function sendMessage(status, arn_sns) {
-    // Create publish parameters
-    var d = new Date();
-    var params = {
+  var d = new Date();
+  var textmessage = new AWS.SNS({apiVersion: '2010-03-31'});
+  textmessage.publish({
     Message: `Device ${globalSerial}: Door is:${status} on ${d}`,  /* required */
     TopicArn: arn_sns
-  };
-
-  var textmessage = new AWS.SNS({apiVersion: '2010-03-31'});
-  textmessage.publish({ params },
+  },
     function(err,data) {
       if (err) {
         console.error(err, err.stack);
