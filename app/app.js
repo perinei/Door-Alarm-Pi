@@ -44,7 +44,7 @@ async function fMain() {
       status = "Closed!"
     }
       writeToDynamoDB(status);
-      sendMessage(status);
+      sendMessage(status, arn_sns);
   } catch (error) {
     console.error(error);
   }
@@ -65,7 +65,7 @@ pushButton.watch(async function (err, value) { //Watch for hardware interrupts o
     status = "Opened"
   }
   writeToDynamoDB(status);
-  sendMessage(status);
+  sendMessage(status, arn_sns);
 
 });
 
@@ -113,7 +113,7 @@ function writeToDynamoDB(status) { // putItem on dynamoDB table
  });
 }
 
-function sendMessage(status) {
+function sendMessage(status, arn_sns) {
     // Create publish parameters
     var d = new Date();
     var params = {
