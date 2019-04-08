@@ -46,7 +46,7 @@ async function fMain() {
       status = "Closed!"
     }
       writeToDynamoDB(status);
-      sendMessage(status, arn_sns);
+      // sendMessage(status, arn_sns);
   } catch (error) {
     console.error(error);
   }
@@ -129,19 +129,6 @@ function sendMessage(status, arn_sns) {
       }
       console.log(data);    
   });
-
-  // // Create promise and SNS service object
-  // var publishTextPromise = new AWS.SNS({apiVersion: '2010-03-31'}).publish(params).promise();
-
-  // // Handle promise's fulfilled/rejected states
-  // publishTextPromise.then(
-  //   function(data) {
-  //     console.log(`Message ${params.Message} sent to the topic ${params.TopicArn}`);
-  //     console.log("MessageID is " + data.MessageId);
-  //   }).catch(
-  //   function(err) {
-  //   console.error(err, err.stack);
-  // });
 }
 
 function unexportOnClose() { //function to run when exiting program
