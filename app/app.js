@@ -20,7 +20,7 @@ async function fMain() {
     console.log("=================================");
     console.log("=================================");
     console.log(`doorSensor service is UP! -> ${d}`);
-    exec('gpio -g mode 13 down');
+    exec('gpio -g mode 13 down'); // enable pulldown resistor for GPIO 13
     globalSerial = await fnSerial();  // get pi serial number
     console.log(`Serial number: ${globalSerial}`);
     var myRegion = await fnRegion();  // get AWS region from AWS configure
