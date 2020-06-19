@@ -1,7 +1,7 @@
 {
   "name": "doorsensor",
   "version": "1.0.0",
-  "description": "Door notification - Raspberry Pi Project. Notification are sent using AWS SNS and data is storage in AWS DynamoDB",
+  "description": "Door notification raspburry pi project",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,8 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.427.0",
-    "onoff": "^4.1.1",
-    "aws-param-store": "^2.1.0"
+    "aws-param-store": "^3.2.0",
+    "aws-sdk": "^2.700.0",
+    "install": "^0.13.0",
+    "npm": "^6.14.5",
+    "onoff": "^6.0.0"
   }
 }
