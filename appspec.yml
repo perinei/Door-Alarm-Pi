@@ -1,27 +1,27 @@
 version: 0.0
 os: linux
 files:
-  - source: /myapp/
-    destination: /home/myapp/doorSensor
+  - source: /app/
+    destination: /home/app/doorSensor
 permissions:
   - object: /
     pattern: "**"
-    owner: myapp
-    group: myapp
+    owner: app
+    group: app
 hooks:
   ApplicationStop:
     - location: scripts/ApplicationStop.sh
       timeout: 30
-      runas: myapp
+      runas: app
   BeforeInstall:
     - location: scripts/BeforeInstall.sh
       timeout: 30
-      runas: myapp
+      runas: app
   AfterInstall:
     - location: scripts/AfterInstall.sh
       timeout: 30
-      runas: myapp
+      runas: app
   ApplicationStart:
     - location: scripts/ApplicationStart.sh
       timeout: 30
-      runas: myapp
+      runas: app
