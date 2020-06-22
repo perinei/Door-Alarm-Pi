@@ -1,4 +1,4 @@
 #!/bin/bash
 # Delete doorSensor service
 
-sudo forever-service delete doorSensor
+###### sudo forever-service delete doorSensor
