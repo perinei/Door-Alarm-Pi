@@ -3,5 +3,5 @@
 ##### Install Modules
 
 cd /home/app/doorSensor/
-npm install
+sudo npm install
 
